@@ -1,12 +1,17 @@
 package br.com.mcoder.HibernateJPATeste.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -25,6 +30,15 @@ public class Carro {
 	
 	@Column(name = "placa", length = 50)
 	private String placa;
+	
+	@OneToMany(mappedBy = "carro")
+	private List<Acessorio> acessorios;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_marca_fk", 
+	foreignKey = @ForeignKey(name = "fk_marca_carro"),
+	referencedColumnName = "id", nullable = false)
+	private Marca marca;
 
 	public Carro() {
 		super();
@@ -59,6 +73,25 @@ public class Carro {
 
 	public void setPlaca(String placa) {
 		this.placa = placa;
+	}
+	
+
+	
+
+	public List<Acessorio> getAcessorio() {
+		return acessorios;
+	}
+
+	public void setAcessorio(List<Acessorio> acessorio) {
+		this.acessorios = acessorio;
+	}
+
+	public Marca getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package br.com.mcoder.HibernateJPATeste.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -22,6 +24,9 @@ public class Marca {
 	
 	@Column(name = "nome", length = 50)
 	private String nome;
+	
+	@OneToMany(mappedBy = "marca")
+	private List<Carro> carros;
 
 	public Marca() {
 		super();
@@ -52,6 +57,16 @@ public class Marca {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+	
+	
+
+	public List<Carro> getCarros() {
+		return carros;
+	}
+
+	public void setCarros(List<Carro> carros) {
+		this.carros = carros;
 	}
 
 	@Override

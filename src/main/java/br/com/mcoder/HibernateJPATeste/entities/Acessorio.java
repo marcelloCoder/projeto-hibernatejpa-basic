@@ -4,9 +4,12 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -21,6 +24,12 @@ public class Acessorio {
 	
 	@Column(name = "nome", length = 50)
 	private String nome;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_carro_fk", 
+	foreignKey = @ForeignKey(name = "fk_carro_acessorio"),
+	referencedColumnName = "id", nullable = false)
+	private Carro carro;
 
 	public Acessorio() {
 	}
@@ -61,6 +70,14 @@ public class Acessorio {
 			return false;
 		Acessorio other = (Acessorio) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public Carro getCarro() {
+		return carro;
+	}
+
+	public void setCarro(Carro carro) {
+		this.carro = carro;
 	}
 	
 	
